@@ -1,34 +1,47 @@
-object WordCount {
+import java.util.Scanner;
+
+
+object Contador {
 
   def main(args: Array[String]): Unit = {
+   
+    print("Ingrese archivo .txt que desea leer: ");
+    var nomArch = scala.io.StdIn.readLine()
+    print("Ingrese palabra que desea contar: ");
+    var pal = scala.io.StdIn.readLine()
 
-    val map = ReadFile.readFile()
-    ReadFile.printContent(map)
+    val map = LeerArch.LeerArch(nomArch)
+    LeerArch.mostrarRes(map, pal)
 
   }
 
 }
-object ReadFile {
+object LeerArch {
   /*
     This object has two functions
-      1. readFile(): read the file line by line and split the string from the spaces
+      1. LeerArch(): read the file line by line and split the string from the spaces
       and put them into Map. Map Key: the word found, Value: occurrences of the word
 
-      2. printContent() : simple print function for print a Map.
+      2. mostrarRes() : simple print function for print a Map.
   */
 
-  def readFile(): Map[String, Int] ={
-    val counter = scala.io.Source.fromFile("src//Files//theFile.txt")
+  def LeerArch(nomArch : String): Map[String, Int] ={
+    val elContador = scala.io.Source.fromFile("src//Files//" + nomArch)
       .getLines
       .flatMap(_.split("\\W+"))
       .foldLeft(Map.empty[String, Int]){
-        (count, word) => count + (word -> (count.getOrElse(word, 0) + 1))
+        (cuenta, palabra) => cuenta + (palabra -> (cuenta.getOrElse(palabra, 0) + 1))
       }
-    return counter
+    return elContador
   }
 
-  def printContent(counter : Map[String, Int]): Unit = {
-    for ((k,v) <- counter) printf("%s : %d\n", k, v)
+  def mostrarRes(elContador : Map[String, Int], pal : String): Unit = {
+    if(pal.isEmpty()){
+      for ((k,v) <- elContador) printf("%s : %d\n", k, v)
+    } else{
+      val cant = elContador(pal)
+      printf("%s : %s\n", pal, cant)
+    }
   }
 
 }
