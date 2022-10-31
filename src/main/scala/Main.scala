@@ -1,6 +1,34 @@
 import java.util.Scanner;
+import java.awt.BorderLayout
+import java.awt.Dimension
+import javax.swing._
+import java.awt.event.ActionListener
+import java.awt.event.ActionEvent
 
+object SwingExample extends App {
 
+    //val textArea = new JTextArea("Hello, Swing world")
+    val file = new JTextField("Enter file name .txt")
+    val scrollPane = new JScrollPane(file)
+    val label = new JLabel()
+
+    val frame = new JFrame("Hello, Swing")
+    
+    frame.setSize(new Dimension(600, 400))
+    frame.setLocationRelativeTo(null)
+    frame.setVisible(true)
+
+    file.addActionListener(new ActionListener() {
+      def actionPerformed(e: ActionEvent): Unit = {
+        val nomArch = file.getText()
+        val map = LeerArch.LeerArch(nomArch)
+        LeerArch.mostrarRes(map, "God")
+      }
+    })
+
+    frame.getContentPane.add(scrollPane, BorderLayout.CENTER)
+}
+/*
 object Contador {
 
   def main(args: Array[String]): Unit = {
@@ -16,6 +44,7 @@ object Contador {
   }
 
 }
+*/
 object LeerArch {
   /*
     This object has two functions
