@@ -5,6 +5,8 @@ import javax.swing._
 import java.awt.event.ActionListener
 import java.awt.event.ActionEvent
 import scala.collection.immutable.ListMap
+
+/*------------------Con interfaz------------------
 object SwingExample extends App {
 
     //val textArea = new JTextArea("Hello, Swing world")
@@ -23,38 +25,34 @@ object SwingExample extends App {
         val nomArch = file.getText()
         val map = LeerArch.LeerArch(nomArch)
         LeerArch.mostrarRes(map, "God")
-        LeerArch.Estadisticas(map)
+        LeerArch.estadisticas(map)
         
       }
     })
 
     frame.getContentPane.add(scrollPane, BorderLayout.CENTER)
 }
-/*
+*/
+
+//------------------Con consola------------------
 object Contador {
 
   def main(args: Array[String]): Unit = {
    
-    print("Ingrese archivo .txt que desea leer: ");
+    print("Ingrese el archivo .txt que desea leer: ");
     var nomArch = scala.io.StdIn.readLine()
     print("Ingrese palabra que desea contar: ");
     var pal = scala.io.StdIn.readLine()
 
     val map = LeerArch.LeerArch(nomArch)
     LeerArch.mostrarRes(map, pal)
+    LeerArch.estadisticas(map)
 
   }
 
 }
-*/
-object LeerArch {
-  /*
-    This object has two functions
-      1. LeerArch(): read the file line by line and split the string from the spaces
-      and put them into Map. Map Key: the word found, Value: occurrences of the word
 
-      2. mostrarRes() : simple print function for print a Map.
-  */
+object LeerArch {
 
   def LeerArch(nomArch : String): Map[String, Int] ={
     val elContador = scala.io.Source.fromFile("src//Files//" + nomArch)
@@ -76,9 +74,9 @@ object LeerArch {
     }
   }
     
-  def Estadisticas(elContador : Map[String, Int]) = { 
+  def estadisticas(elContador : Map[String, Int]) = { 
     
-    // ascendente a descendente 
+    // Mayor a menor
     val res = ListMap(elContador.toSeq.sortWith(_._2 > _._2):_*)
     val top10Mas = res.take(10)
     val topMenor = res.last
@@ -86,16 +84,10 @@ object LeerArch {
     println("Top 10 palabras más utilizadas")
     for ((k,v) <- top10Mas) printf("%s : %d\n", k, v)
     println("")
-    println("")
-    println("Palabra menos utilizada menos utilizada")
+    println("Palabra menos utilizada")
     println(topMenor)
-
-    for ((k,v) <- res) printf("%s : %d\n", k, v)
-
-  
-    
+    println("")
+ 
   }
 
 }
-
-
