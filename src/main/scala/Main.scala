@@ -65,7 +65,7 @@ object LeerArch {
   }
 
   def mostrarRes(elContador : Map[String, Int], pal : String): Unit = {
-    val contadorTotal = 0
+   
     if(pal.isEmpty()){
       for ((k,v) <- elContador) printf("%s : %d\n", k, v)
     } else{
