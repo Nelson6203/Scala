@@ -4,7 +4,7 @@ import java.awt.Dimension
 import javax.swing._
 import java.awt.event.ActionListener
 import java.awt.event.ActionEvent
-
+import scala.collection.immutable.ListMap
 object SwingExample extends App {
 
     //val textArea = new JTextArea("Hello, Swing world")
@@ -23,6 +23,8 @@ object SwingExample extends App {
         val nomArch = file.getText()
         val map = LeerArch.LeerArch(nomArch)
         LeerArch.mostrarRes(map, "God")
+        LeerArch.Estadisticas(map)
+        
       }
     })
 
@@ -65,6 +67,7 @@ object LeerArch {
   }
 
   def mostrarRes(elContador : Map[String, Int], pal : String): Unit = {
+    val contadorTotal = 0
     if(pal.isEmpty()){
       for ((k,v) <- elContador) printf("%s : %d\n", k, v)
     } else{
@@ -72,5 +75,27 @@ object LeerArch {
       printf("%s : %s\n", pal, cant)
     }
   }
+    
+  def Estadisticas(elContador : Map[String, Int]) = { 
+    
+    // ascendente a descendente 
+    val res = ListMap(elContador.toSeq.sortWith(_._2 > _._2):_*)
+    val top10Mas = res.take(10)
+    val topMenor = res.last
+    println("")
+    println("Top 10 palabras más utilizadas")
+    for ((k,v) <- top10Mas) printf("%s : %d\n", k, v)
+    println("")
+    println("")
+    println("Palabra menos utilizada menos utilizada")
+    println(topMenor)
+
+    for ((k,v) <- res) printf("%s : %d\n", k, v)
+
+  
+    
+  }
 
 }
+
+
